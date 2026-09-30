@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fff8f5" />
+    <meta
+      name="description"
+      content="A tiny, very serious date invitation."
+    />
+    <title>A very serious question 💌</title>
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <div class="ambient" aria-hidden="true">
+      <span class="heart heart-one">♥</span>
+      <span class="heart heart-two">♥</span>
+      <span class="heart heart-three">♥</span>
+      <span class="heart heart-four">♥</span>
+      <span class="heart heart-five">♥</span>
+      <span class="sparkle sparkle-one">✦</span>
+      <span class="sparkle sparkle-two">✦</span>
+    </div>
+
+    <main class="app-shell">
+      <section class="experience-card" aria-live="polite">
+        <div class="progress" aria-label="Invitation progress">
+          <span class="progress-dot active"></span>
+          <span class="progress-dot"></span>
+          <span class="progress-dot"></span>
+          <span class="progress-dot"></span>
+          <span class="progress-dot"></span>
+          <span class="progress-dot"></span>
+          <span class="progress-dot"></span>
+        </div>
+
+        <!-- PAGE 1: The big question -->
+        <section class="page active question-page" data-page="1" aria-labelledby="questionTitle">
+          <p class="eyebrow" id="questionEyebrow">Okay… I have a very serious question for you 👀</p>
+
+          <div class="portrait-frame">
+            <div class="tape" aria-hidden="true"></div>
+            <img id="crushImage" src="./assets/invitation-photo.png" alt="Smiling portrait in a black blazer" />
+            <span class="portrait-caption">me, gathering the courage</span>
+          </div>
+
+          <h1 id="questionTitle">Will you go on a date with me? 💐</h1>
+          <p class="supporting-copy" id="questionSupporting">Choose carefully. This is being monitored by the romance department.</p>
+
+          <div class="dodge-zone">
+            <button class="button button-primary yes-button" id="yesButton" type="button">
+              YES <span>💗</span>
+            </button>
+            <button class="button button-secondary no-button" id="noButton" type="button">
+              NO <span>😭</span>
+            </button>
+          </div>
+          <p class="no-hint" id="noHint" aria-live="assertive"></p>
+        </section>
+
+        <!-- PAGE 2: The surprise -->
+        <section class="page reaction-page" data-page="2" aria-labelledby="reactionTitle" hidden>
+          <img
+            class="reaction-photo"
+            id="reactionImage"
+            src="./assets/reaction-photo.png"
+            alt="A child giving a playful, surprised smile"
+          />
+          <p class="eyebrow">plot twist of the century</p>
+          <h2 id="reactionTitle">WAIT… YOU ACTUALLY SAID YES?? 😭</h2>
+          <p class="big-copy" id="reactionSubtitle">I was fully prepared for you to reject me 💀</p>
+          <button class="button button-primary button-wide" data-next="3" type="button">
+            okay okay <span>→</span>
+          </button>
+        </section>
+
+        <!-- PAGE 3: The very official agreement -->
+        <section class="page agreement-page" data-page="3" aria-labelledby="agreementTitle" hidden>
+          <div class="document-stamp">100% SERIOUS*</div>
+          <p class="eyebrow">tiny print, huge consequences</p>
+          <h2 id="agreementTitle">DATE AGREEMENT<span class="trademark">™</span></h2>
+          <p class="agreement-intro">By continuing, you agree to attend one (1) extremely important date.</p>
+
+          <ul class="terms-list">
+            <li><span>✓</span> You agree to laugh at any jokes I crack 😂</li>
+            <li><span>✓</span> You agree to get a hug after the date 🥲</li>
+            <li><span>✓</span> You agree not to cancel unless absolutely necessary.</li>
+            <li><span>✓</span> You agree this is the best date invitation you’ve ever had 🥹</li>
+            <li><span>✓</span> Food decisions may be negotiated.</li>
+            <li><span>✓</span> Refunds are unavailable after YES has been pressed. 😭</li>
+          </ul>
+
+          <div id="agreementAction">
+            <button class="button button-primary button-wide" id="acceptButton" type="button">
+              I ACCEPT <span>💗</span>
+            </button>
+            <p class="micro-copy">*Not a real contract. Very real date request.</p>
+          </div>
+
+          <div class="transaction-result" id="transactionResult" hidden>
+            <div class="success-check" aria-hidden="true">✓</div>
+            <strong>Transaction successful ✅</strong>
+            <p>Congratulations. You are now legally going on a date with me. <em>(Not legally.)</em> 😂</p>
+            <button class="button button-primary button-wide" data-next="4" type="button">
+              plan the date <span>→</span>
+            </button>
+          </div>
+        </section>
+
+        <!-- PAGE 4: Date and time -->
+        <section class="page schedule-page" data-page="4" aria-labelledby="scheduleTitle" hidden>
+          <img
+            class="schedule-photo"
+            id="scheduleImage"
+            src="./assets/schedule-photo.png"
+            alt="A smiling stick figure drawing"
+          />
+          <p class="eyebrow">checking our extremely busy calendars</p>
+          <h2 id="scheduleTitle">So… when are you free? 📅</h2>
+          <p class="supporting-copy">Pick a day and time. I promise to pretend I wasn't waiting by my phone.</p>
+
+          <form id="scheduleForm" novalidate>
+            <div class="field-group">
+              <label for="dateInput">Date</label>
+              <div class="input-wrap">
+                <span aria-hidden="true">📅</span>
+                <input id="dateInput" name="date" type="date" required />
+              </div>
+              <span class="field-error" id="dateError"></span>
+            </div>
+
+            <div class="field-group">
+              <label for="timeInput">Time</label>
+              <div class="input-wrap">
+                <span aria-hidden="true">⏰</span>
+                <input id="timeInput" name="time" type="time" required />
+              </div>
+              <span class="field-error" id="timeError"></span>
+            </div>
+
+            <button class="button button-primary button-wide" type="submit">
+              set the date <span>♥</span>
+            </button>
+          </form>
+        </section>
+
+        <!-- PAGE 5: Food selection -->
+        <section class="page choice-page" data-page="5" aria-labelledby="foodTitle" hidden>
+          <p class="eyebrow">the most important compatibility test</p>
+          <h2 id="foodTitle">What are we feeling? 🍴✨</h2>
+          <p class="section-label">Pick your vibe</p>
+
+          <div class="option-grid food-grid" id="foodOptions" role="radiogroup" aria-labelledby="foodTitle">
+            <button class="option-card" type="button" role="radio" aria-checked="false" data-value="Pizza" data-emoji="🍕">
+              <span class="option-emoji">🍕</span><span>Pizza</span><i>✓</i>
+            </button>
+            <button class="option-card" type="button" role="radio" aria-checked="false" data-value="IceCream" data-emoji="🍦">
+              <span class="option-emoji">🍦</span><span>IceCream</span><i>✓</i>
+            </button>
+            <button class="option-card" type="button" role="radio" aria-checked="false" data-value="Burger" data-emoji="🍔">
+              <span class="option-emoji">🍔</span><span>Burger</span><i>✓</i>
+            </button>
+            <button class="option-card" type="button" role="radio" aria-checked="false" data-value="Sandwich" data-emoji="🥪">
+              <span class="option-emoji">🥪</span><span>Sandwich</span><i>✓</i>
+            </button>
+            <button class="option-card" type="button" role="radio" aria-checked="false" data-value="Drinks" data-emoji="🥤">
+              <span class="option-emoji">🥤</span><span>Drinks</span><i>✓</i>
+            </button>
+          </div>
+          <p class="choice-error" id="foodError" aria-live="polite"></p>
+          <button class="button button-primary button-wide" id="foodNext" type="button">
+            that's the vibe <span>→</span>
+          </button>
+        </section>
+
+        <!-- PAGE 6: Chaos level -->
+        <section class="page choice-page" data-page="6" aria-labelledby="chaosTitle" hidden>
+          <p class="eyebrow">one final risk assessment</p>
+          <h2 id="chaosTitle">Important final decision.</h2>
+          <p class="big-copy">How chaotic should this date be? 😂</p>
+
+          <div class="option-list" id="chaosOptions" role="radiogroup" aria-labelledby="chaosTitle">
+            <button class="option-card option-row" type="button" role="radio" aria-checked="false" data-value="Very normal" data-emoji="😇">
+              <span class="option-emoji">😇</span><span>Very normal</span><i>✓</i>
+            </button>
+            <button class="option-card option-row" type="button" role="radio" aria-checked="false" data-value="A little spontaneous" data-emoji="😌">
+              <span class="option-emoji">😌</span><span>A little spontaneous</span><i>✓</i>
+            </button>
+            <button class="option-card option-row" type="button" role="radio" aria-checked="false" data-value="Let's just see what happens" data-emoji="😭">
+              <span class="option-emoji">😭</span><span>Let's just see what happens</span><i>✓</i>
+            </button>
+            <button class="option-card option-row" type="button" role="radio" aria-checked="false" data-value="I have absolutely no idea" data-emoji="💀">
+              <span class="option-emoji">💀</span><span>I have absolutely no idea</span><i>✓</i>
+            </button>
+          </div>
+          <p class="choice-error" id="chaosError" aria-live="polite"></p>
+          <button class="button button-primary button-wide" id="chaosNext" type="button">
+            lock it in <span>♥</span>
+          </button>
+        </section>
+
+        <!-- PAGE 7: Final confirmation -->
+        <section class="page final-page" data-page="7" aria-labelledby="finalTitle" hidden>
+          <img
+            class="final-photo"
+            id="finalImage"
+            src="./assets/final-photo.png"
+            alt="Cartoon mouse with teary eyes and hands over its mouth"
+          />
+          <p class="eyebrow">calendar status: extremely cute</p>
+          <h2 id="finalTitle">IT'S A DATE 🥹💗</h2>
+
+          <div class="date-ticket">
+            <div class="ticket-head">
+              <span>DATE NIGHT</span>
+              <span>ADMIT TWO</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-icon">📅</span>
+              <div><small>THE DAY</small><strong id="summaryDate"></strong></div>
+            </div>
+            <div class="summary-row">
+              <span class="summary-icon">⏰</span>
+              <div><small>THE TIME</small><strong id="summaryTime"></strong></div>
+            </div>
+            <div class="summary-row">
+              <span class="summary-icon" id="summaryFoodEmoji">🍕</span>
+              <div><small>THE FOOD</small><strong id="summaryFood"></strong></div>
+            </div>
+            <div class="summary-row">
+              <span class="summary-icon" id="summaryChaosEmoji">😂</span>
+              <div><small>CHAOS LEVEL</small><strong id="summaryChaos"></strong></div>
+            </div>
+          </div>
+
+          <p class="final-copy" id="finalCopy">Okay, it's officially happening.</p>
+          <p class="see-you" id="seeYouMessage">I'll see you then ❤️</p>
+          <p class="signature" id="signature"></p>
+
+          <div class="share-plan">
+            <p class="share-prompt" id="sharePrompt">Choose my chat in the share sheet so I get the plan 🥹</p>
+            <button class="button button-primary button-wide share-button" id="shareDateButton" type="button">Share the plan 💌</button>
+            <p class="share-status" id="shareStatus" role="status"></p>
+            <textarea class="share-fallback" id="shareFallbackText" aria-label="Date details to copy" readonly hidden></textarea>
+          </div>
+
+          <button class="changed-mind" id="changedMindButton" type="button">Wait… I changed my mind 😭</button>
+          <p class="ps-copy" id="postscript">P.S. You could've just pressed YES from the beginning. 😭</p>
+        </section>
+      </section>
+
+      <p class="privacy-note"><span>🔒</span> Your choices stay in this browser until you choose to share them.</p>
+    </main>
+
+    <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+
+    <dialog class="cute-dialog" id="changedMindDialog">
+      <button class="dialog-close" id="dialogCloseIcon" aria-label="Close" type="button">×</button>
+      <div class="dialog-emoji">😂</div>
+      <h2>Nice try</h2>
+      <p>You're already committed.</p>
+      <button class="button button-primary button-wide" id="dialogCloseButton" type="button">Okay fine 😭</button>
+    </dialog>
+  </body>
+</html>
