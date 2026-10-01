@@ -7,6 +7,8 @@
 const CONFIG = {
   yourName: "Goodluck",
   defaultInviteeName: "you",
+  introImageUrl: "./assets/intro-doodle.png",
+  introImageAlt: "A goofy hand-drawn smiling face",
   imageUrl: "./assets/invitation-photo.png",
   imageAlt: "Smiling portrait in a black blazer",
   reactionImageUrl: "./assets/reaction-photo.png",
@@ -82,6 +84,8 @@ const root = document.documentElement;
 function applyConfig() {
   document.title = CONFIG.messages.browserTitle;
   document.querySelector("meta[name='theme-color']").content = CONFIG.colors.cream;
+  document.getElementById("introImage").src = CONFIG.introImageUrl;
+  document.getElementById("introImage").alt = CONFIG.introImageAlt;
   document.getElementById("crushImage").src = CONFIG.imageUrl;
   document.getElementById("crushImage").alt = CONFIG.imageAlt;
   document.getElementById("reactionImage").src = CONFIG.reactionImageUrl;

@@ -7,6 +7,7 @@ A mobile-first, no-backend date invitation built with plain HTML, CSS, and JavaS
 Open `script.js` and edit the `CONFIG` object at the very top:
 
 - `yourName`
+- `introImageUrl` and `introImageAlt`
 - `imageUrl` and `imageAlt`
 - `reactionImageUrl` and `reactionImageAlt`
 - `scheduleImageUrl` and `scheduleImageAlt`
@@ -14,7 +15,7 @@ Open `script.js` and edit the `CONFIG` object at the very top:
 - the main color palette
 - the headline, reaction, final-screen, and funny hint messages
 
-The supplied images are saved in `assets` as `invitation-photo.png`, `reaction-photo.png`, `schedule-photo.png`, and `final-photo.png`. To change any of them later, add your image to `assets` and update its URL in `CONFIG`.
+The intro doodle is saved as `assets/intro-doodle.png`; the other supplied images are saved as `invitation-photo.png`, `reaction-photo.png`, `schedule-photo.png`, and `final-photo.png`. To change any of them later, add your image to `assets` and update its URL in `CONFIG`.
 
 ## Personalized links
 
