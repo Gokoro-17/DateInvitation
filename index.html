@@ -34,10 +34,23 @@
           <span class="progress-dot"></span>
           <span class="progress-dot"></span>
           <span class="progress-dot"></span>
+          <span class="progress-dot"></span>
         </div>
 
+        <!-- PAGE 0: A personal hello before the existing invitation -->
+        <section class="page active intro-page" data-page="0" aria-labelledby="introTitle">
+          <div class="intro-seal" aria-hidden="true">💌</div>
+          <p class="eyebrow">a little something for you</p>
+          <h1 id="introTitle">Hey, you... 👀</h1>
+          <p class="intro-lead" id="introLead">I made something for you.</p>
+          <p class="supporting-copy intro-tease" id="introTease">And yes... unfortunately, you have to click it 😂</p>
+          <button class="button button-primary button-wide intro-continue" data-next="1" type="button">
+            continue <span>→</span>
+          </button>
+        </section>
+
         <!-- PAGE 1: The big question -->
-        <section class="page active question-page" data-page="1" aria-labelledby="questionTitle">
+        <section class="page question-page" data-page="1" aria-labelledby="questionTitle" hidden>
           <p class="eyebrow" id="questionEyebrow">Okay… I have a very serious question for you 👀</p>
 
           <div class="portrait-frame">

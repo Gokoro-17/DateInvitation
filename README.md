@@ -16,7 +16,16 @@ Open `script.js` and edit the `CONFIG` object at the very top:
 
 The supplied images are saved in `assets` as `invitation-photo.png`, `reaction-photo.png`, `schedule-photo.png`, and `final-photo.png`. To change any of them later, add your image to `assets` and update its URL in `CONFIG`.
 
-On the final page, the celebration chime plays when the confetti appears. The **Share the plan** button opens the phone's share sheet with the chosen date, time, food, and chaos level. She must select your chat/contact and send it; nothing is sent automatically. If sharing is unavailable, the details can be copied instead.
+## Personalized links
+
+Add `?name=` followed by **any name you choose** to the same deployed website URL. No code edit or redeploy is needed for each person:
+
+- `https://dateinvitation-eight.vercel.app/?name=YourChosenName`
+- For a two-word name: `https://dateinvitation-eight.vercel.app/?name=First%20Last`
+
+Spaces and other special characters should be URL-encoded. Without a name, the intro says “Hey, you...” and the other pages use their original wording. The fallback can be changed with `defaultInviteeName` in `CONFIG`.
+
+On the final page, the celebration chime plays when the confetti appears. The **Share the plan** button opens the phone's share sheet with the invitee's name (when provided), chosen date, time, food, and chaos level. She must select your chat/contact and send it; nothing is sent automatically. If sharing is unavailable, the details can be copied instead.
 
 ## Preview locally
 

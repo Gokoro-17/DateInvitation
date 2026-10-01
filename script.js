@@ -6,6 +6,7 @@
    ================================================================ */
 const CONFIG = {
   yourName: "Goodluck",
+  defaultInviteeName: "you",
   imageUrl: "./assets/invitation-photo.png",
   imageAlt: "Smiling portrait in a black blazer",
   reactionImageUrl: "./assets/reaction-photo.png",
@@ -25,12 +26,20 @@ const CONFIG = {
   messages: {
     browserTitle: "A very serious question 💌",
     signaturePrefix: "with unreasonable amounts of courage,",
+    introTitle: "Hey, {name}... 👀",
+    introLead: "I made something for you.",
+    introTease: "And yes... unfortunately, you have to click it 😂",
     questionEyebrow: "Okay… I have a very serious question for you 👀",
     questionTitle: "Will you go on a date with me? 💐",
+    questionTitlePersonalized: "{name}, will you go on a date with me? 💐",
     questionSupporting: "Choose carefully. This is being monitored by the romance department.",
     reactionTitle: "WAIT… YOU ACTUALLY SAID YES?? 😭",
     reactionSubtitle: "I was fully prepared for you to reject me 💀",
+    reactionSubtitlePersonalized: "I was fully prepared for you to reject me, {name} 💀",
+    foodTitle: "What are we feeling? 🍴✨",
+    foodTitlePersonalized: "{name}, what are we feeling? 🍴✨",
     finalTitle: "IT'S A DATE 🥹💗",
+    finalTitlePersonalized: "IT'S A DATE, {NAME}! 🥹💗",
     finalCopy: "Okay, it's officially happening.",
     seeYouMessage: "I'll see you then ❤️",
     sharePrompt: "Choose my chat in the share sheet so I get the plan 🥹",
@@ -40,8 +49,24 @@ const CONFIG = {
   },
 };
 
+// URLSearchParams decodes names such as Mary%20Jane. Keep URL text as plain text
+// (never HTML), and use the configured fallback for missing/empty values.
+function readInviteeName() {
+  const urlName = new URLSearchParams(window.location.search).get("name");
+  const cleaned = (urlName ?? "").replace(/[\u0000-\u001f\u007f-\u009f]/g, " ").replace(/\s+/g, " ").trim();
+  if (/^(null|undefined)$/i.test(cleaned)) return "";
+  return Array.from(cleaned).slice(0, 40).join("");
+}
+
+const personalizedName = readInviteeName();
+const inviteeName = personalizedName || CONFIG.defaultInviteeName;
+
+function withInviteeName(template) {
+  return template.replaceAll("{NAME}", inviteeName.toLocaleUpperCase()).replaceAll("{name}", inviteeName);
+}
+
 const state = {
-  currentPage: 1,
+  currentPage: 0,
   date: "",
   time: "",
   food: null,
@@ -67,11 +92,14 @@ function applyConfig() {
   document.getElementById("finalImage").alt = CONFIG.finalImageAlt;
   document.getElementById("signature").textContent = `${CONFIG.messages.signaturePrefix} ${CONFIG.yourName}`;
   [
+    ["introLead", "introLead"],
+    ["introTease", "introTease"],
     ["questionEyebrow", "questionEyebrow"],
     ["questionTitle", "questionTitle"],
     ["questionSupporting", "questionSupporting"],
     ["reactionTitle", "reactionTitle"],
     ["reactionSubtitle", "reactionSubtitle"],
+    ["foodTitle", "foodTitle"],
     ["finalTitle", "finalTitle"],
     ["finalCopy", "finalCopy"],
     ["seeYouMessage", "seeYouMessage"],
@@ -81,6 +109,19 @@ function applyConfig() {
   ].forEach(([elementId, messageKey]) => {
     document.getElementById(elementId).textContent = CONFIG.messages[messageKey];
   });
+  // Only the named links alter existing screens; the no-name URL keeps their
+  // original copy. textContent prevents URL text from becoming markup.
+  document.getElementById("introTitle").textContent = withInviteeName(CONFIG.messages.introTitle);
+  if (personalizedName) {
+    [
+      ["questionTitle", "questionTitlePersonalized"],
+      ["reactionSubtitle", "reactionSubtitlePersonalized"],
+      ["foodTitle", "foodTitlePersonalized"],
+      ["finalTitle", "finalTitlePersonalized"],
+    ].forEach(([elementId, messageKey]) => {
+      document.getElementById(elementId).textContent = withInviteeName(CONFIG.messages[messageKey]);
+    });
+  }
   root.style.setProperty("--pink", CONFIG.colors.pink);
   root.style.setProperty("--pink-dark", CONFIG.colors.pinkDark);
   root.style.setProperty("--pink-pale", CONFIG.colors.pinkPale);
@@ -91,7 +132,7 @@ function applyConfig() {
 
 function updateProgress(pageNumber) {
   progressDots.forEach((dot, index) => {
-    const step = index + 1;
+    const step = index;
     dot.classList.toggle("active", step === pageNumber);
     dot.classList.toggle("complete", step < pageNumber);
   });
@@ -456,7 +497,7 @@ function playCelebrationSound() {
 
 function buildShareMessage() {
   return [
-    "IT'S A DATE 🥹💗",
+    personalizedName ? withInviteeName(CONFIG.messages.finalTitlePersonalized) : CONFIG.messages.finalTitle,
     `📅 ${formatDate(state.date, true)}`,
     `⏰ ${formatTime(state.time)}`,
     `${state.food.emoji} ${state.food.label}`,
